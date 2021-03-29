@@ -32,12 +32,17 @@
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
-        perror("wrong arguments");
+        perror("too many arguments");
         exit(-1);
     }
-    char buffer[50];
+    char buffer[strlen(argv[1])];
     int j = snprintf(buffer, strlen(argv[1])+1, "%s\n", argv[1]);
     printf("%s\ncount = %d\n", buffer, j-1);
+    for (int i = 0; buffer[i] != '\0'; i++) {
+        if ((buffer[i] == 't' || buffer[i] != 'f') && (buffer[i] != 't' || buffer[i] == 'f')) {
+            perror("wrong arguments");
+            exit(-1);
+        }
+    }
     return 0;
 }
-

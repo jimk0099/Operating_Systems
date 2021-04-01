@@ -144,6 +144,6 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < j-1; i++) {
       wait(NULL);
     }
-
+    
     return 0;
 }

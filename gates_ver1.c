@@ -139,12 +139,17 @@ void handle_dad_signal(int sig) {
       //int wstatus;
 
       //printf("BEFORE pid2=%d, cpid=%d, wstatus=%d\n", pid2, cpid, wstatus);
-      pid2 = waitpid(cpid, &wstatus, 0);
+      pid2 = waitpid(cpid, &wstatus, WUNTRACED | WCONTINUED);           //0
       //printf("AFTER pid2=%d, cpid=%d, wstatus=%d\n", pid2, cpid, wstatus);
 
       if (pid2 == -1) {
         perror("waitpid");
         exit(EXIT_FAILURE);
+      }
+
+      if (WIFSTOPPED(wstatus)) {                                 //CHILD STOPPED
+        printf(MAGENTA "Child %d tried to stop but father caught it\n", pid2);
+        kill(pid2, SIGCONT);
       }
 
       if (WIFEXITED(wstatus)) {                                 //CHILD IS TERMINATED

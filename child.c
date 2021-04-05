@@ -130,7 +130,7 @@ void handle_sig(int sig) {
       case SIGTERM:
         //printf(CYAN "SIGTERM detected;\n");
         //fflush(stdout);
-        exit(1);
+        exit(0);
         break;
   }
 }

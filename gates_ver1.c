@@ -146,7 +146,7 @@ void handle_dad_signal(int sig) {
         //int wstatus;
 
         //printf("BEFORE pid2=%d, cpid=%d, wstatus=%d\n", pid2, cpid, wstatus);
-        pid2 = waitpid(cpid, &wstatus, WUNTRACED | WCONTINUED);           //0
+        pid2 = waitpid(cpid, &wstatus, WUNTRACED | WCONTINUED);           //returns pid of child changing state, wstatus: what change happened, 
         //printf("AFTER pid2=%d, cpid=%d, wstatus=%d\n", pid2, cpid, wstatus);
 
         if (pid2 == -1) {
@@ -246,7 +246,7 @@ int main(int argc, char *argv[]) {
 
   struct sigaction sa;
   sa.sa_handler = &handle_dad_signal;
-  sa.sa_flags = SA_RESTART; //what is this??
+  sa.sa_flags = SA_RESTART; //Can run again
 
   if (sigaction(SIGUSR1, &sa, NULL) == -1) {
     perror("Error: cannot handle SIGUS1"); // Should not happen
@@ -273,6 +273,7 @@ int main(int argc, char *argv[]) {
         describe_wait_status(pid2, status);
       }
       printf(WHITE "All children exited, terminating as well\n");
+      kill(getpid(), SIGKILL);
     }
     pause();
   }

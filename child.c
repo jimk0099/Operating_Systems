@@ -151,8 +151,8 @@ int main(int argc, char **argv) {
 
   struct sigaction sa;
   sa.sa_handler = &handle_sig;
-  sa.sa_flags = SA_RESTART; //what is this??
-  
+  sa.sa_flags = SA_RESTART; //Signal can run again
+
   if (sigaction(SIGUSR1, &sa, NULL) == -1) {
     perror("Error: cannot handle SIGUS1"); // Should not happen
   }

@@ -40,3 +40,12 @@ handle_example
 child.o
 gates_ver1.o
 makefile
+Ask3
+Ask3.c
+child.c
+Example_pipes
+gates_ver1.c
+gates_ver1.o
+Kalathas_ask3.c
+gates_ver1.c
+child.c

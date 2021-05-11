@@ -109,6 +109,8 @@ int main(int argc, char* argv[]) {
                     exit(-1);
                 }
                 wr_num = k * rd_num;
+                printf("CHILD(%d) read %d and give %d CHILD(%d)\n", i, rd_num, wr_num, i+1);
+                
                 close(pipes[1][READ]);
                 if (write(pipes[1][WRITE], &wr_num, sizeof(wr_num)) == -1) {
                     perror("writing in the pipe failed!");
